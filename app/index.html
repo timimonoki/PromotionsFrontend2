@@ -1,0 +1,84 @@
+<!doctype html>
+<html class="no-js">
+<head>
+	<script src='//maps.googleapis.com/maps/api/js?sensor=false'></script>
+	<meta charset="utf-8">
+	<title></title>
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width">
+	<link rel="icon" href="http://localhost:9000/favicon.ico?v=2" />
+
+	<!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+	<!-- build:css(.) styles/vendor.css -->
+	<!-- bower:css -->
+	<link rel="stylesheet" href="bower_components/angular-busy/dist/angular-busy.css" />
+	<link rel="stylesheet" href="bower_components/angular-material/angular-material.css" />
+	<link rel="stylesheet" href="bower_components/angular-ui-notification/dist/angular-ui-notification.css" />
+	<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="bower_components/sweetalert/dist/sweetalert.css" />
+	<!-- endbower -->
+	<!-- endbuild -->
+	<!-- build:css(.tmp) styles/main.css -->
+	<link rel="stylesheet" href="styles/main.css">
+	<link rel="stylesheet" href="styles/maps.css">
+	<!-- endbuild -->
+</head>
+<body ng-app="jumboClient">
+
+	  <div class="container">
+	  	<div ui-view></div>
+	  </div>
+
+	  <!-- build:js(.) scripts/vendor.js -->
+	  <!-- bower:js -->
+	  <script src="bower_components/jquery/dist/jquery.js"></script>
+	  <script src="bower_components/angular/angular.js"></script>
+	  <script src="bower_components/angular-animate/angular-animate.js"></script>
+	  <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+	  <script src="bower_components/angular-busy/dist/angular-busy.js"></script>
+	  <script src="bower_components/angular-cookies/angular-cookies.js"></script>
+	  <script src="bower_components/angular-simple-logger/dist/angular-simple-logger.js"></script>
+	  <script src="bower_components/lodash/lodash.js"></script>
+	  <script src="bower_components/markerclustererplus/src/markerclusterer.js"></script>
+	  <script src="bower_components/google-maps-utility-library-v3-markerwithlabel/dist/markerwithlabel.js"></script>
+	  <script src="bower_components/google-maps-utility-library-v3-infobox/dist/infobox.js"></script>
+	  <script src="bower_components/google-maps-utility-library-v3-keydragzoom/dist/keydragzoom.js"></script>
+	  <script src="bower_components/js-rich-marker/src/richmarker.js"></script>
+	  <script src="bower_components/angular-google-maps/dist/angular-google-maps.js"></script>
+	  <script src="bower_components/angular-aria/angular-aria.js"></script>
+	  <script src="bower_components/angular-messages/angular-messages.js"></script>
+	  <script src="bower_components/angular-material/angular-material.js"></script>
+	  <script src="bower_components/angular-modal-service/dst/angular-modal-service.js"></script>
+	  <script src="bower_components/angular-resource/angular-resource.js"></script>
+	  <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
+	  <script src="bower_components/angular-ui-notification/dist/angular-ui-notification.js"></script>
+	  <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+	  <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+	  <script src="bower_components/ng-file-upload/ng-file-upload.js"></script>
+	  <script src="bower_components/sweetalert/dist/sweetalert.min.js"></script>
+	  <script src="bower_components/ngSweetAlert/SweetAlert.js"></script>
+	  <script src="bower_components/ngstorage/ngStorage.js"></script>
+	  <!-- endbower -->
+	  <!-- endbuild -->
+
+	  <!-- build:js({.tmp,app}) scripts/scripts.js -->
+	  <script src="scripts/app.js"></script>
+
+	  <script src="scripts/services/authenticationInterceptor.js"></script>
+	  <script src="scripts/services/config.js"></script>
+	  <script src="scripts/services/user.js"></script>
+	  <!--<script src="scripts/services/project.js"></script>
+	   <script src="scripts/services/task.js"></script>-->
+	   <script src="scripts/services/geoItem.js"></script>
+
+	  <script src="scripts/controllers/menuCtrl.js"></script>
+	  <script src="scripts/controllers/homeCtrl.js"></script>
+	  	  <script src="scripts/controllers/detailsCtrl.js"></script>
+		<script src="scripts/controllers/newItemCtrl.js"></script>
+
+	  <script src="scripts/controllers/authentication/loginCtrl.js"></script>
+	  <script src="scripts/controllers/authentication/signUpCtrl.js"></script>
+
+	  <!-- endbuild -->
+	</body>
+	</html>

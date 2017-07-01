@@ -1,0 +1,16 @@
+<div ng-controller='SignUpCtrl'>
+    	  <div class="modal-dialog">
+				<div class="loginmodal-container">
+					<h1>Sign up</h1><br>
+				  <form>
+					<input type="text" name="user" placeholder="Email" ng-model='user.username'>
+					<input type="password" name="pass" placeholder="Password" ng-model='user.password'>
+					<input type="submit" name="login" class="login loginmodal-submit" value="Login" ng-click='signUp()'>
+				  </form>
+					
+				  <div class="login-help">
+					<a ui-sref="main.login">Use existing account</a>
+				  </div>
+				</div>
+			</div>
+		  </div>
