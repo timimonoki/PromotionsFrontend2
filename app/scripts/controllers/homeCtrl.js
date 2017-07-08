@@ -44,11 +44,6 @@ $scope.goToDetails = function(id){
 }
 
 
-
-
-
-
-
 /* ITEMS MANAGEMENT */
 
 $scope.items = [];
