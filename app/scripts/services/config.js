@@ -17,6 +17,4 @@ angular.module('jumboClient').service('Config', ['$localStorage', function( $loc
 		delete $localStorage.token;
 	}
 
-
-
 }]);

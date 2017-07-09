@@ -33,7 +33,7 @@
 <ui-gmap-markers models="markers2" coords="'self'" icon="'icon'" click="onMarkerClicked" options="'options'" events="markers2Events">
   <ui-gmap-windows show="'showWindow'" closeClick="'closeClick'" onClicked="'onClicked'" ng-cloak>
                 <div>
-                    <h3 ng-non-bindable>{{title}}</h3>
+                    <h3 ng-non-bindable><a ng-click="goToDetails(id)">{{title}}</a></h3>
                     <p ng-non-bindable>{{text}}</p>
                     <p ng-non-bindable>Coordinates: {{ latitude | number:4 }}, {{ longitude | number:4 }}</p>
 
