@@ -14,7 +14,9 @@ var jumboClient = angular
     'uiGmapgoogle-maps',
     'angularModalService',
     'oitozero.ngSweetAlert',
-    'ui-notification'
+    'ui-notification',
+    'ui.grid',
+    'ui.grid.pagination'
  ])
 
 jumboClient.config(function($stateProvider, $urlRouterProvider, $httpProvider, uiGmapGoogleMapApiProvider, NotificationProvider) {
@@ -68,6 +70,7 @@ jumboClient.config(function($stateProvider, $urlRouterProvider, $httpProvider, u
     if (!$httpProvider.defaults.headers.get) {
         $httpProvider.defaults.headers.get = {};
     }
+    $httpProvider.defaults.useXDomain = true;
 
     //disable IE ajax request caching
     $httpProvider.defaults.headers.get['If-Modified-Since'] = 'Mon, 26 Jul 1997 05:00:00 GMT';

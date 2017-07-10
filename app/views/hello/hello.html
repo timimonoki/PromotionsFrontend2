@@ -1,46 +1,70 @@
 <div class="hello" ng-controller="HomeCtrl">
 
-  <div ng-if="!isLoggedIn()"><p><h3>Please login in order to see the treasures</h3></p></div>
+    <div ng-if="!isLoggedIn()"><p><h3>Please login in order to see the treasures</h3></p></div>
 
-<div ng-if="isLoggedIn()">
-
-<table class="table  table-bordered table-sm">
-  <thead class="thead-inverse ">
-    <tr>
-      <th>#</th>
-      <th>Title</th>
-      <th>Latitude</th>
-      <th>Longitude</th>
-      <th>Created By</th>
-      <th ng-show="isManager()"></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr ng-repeat="obj in items track by $index">
-      <th scope="row">{{$index+1}}</th>
-      <td><a ng-click="goToDetails(obj.id)">{{obj.title}}</a></td>
-      <td>{{obj.lat}}</td>
-      <td>{{obj.lon}}</td>
-      <td>{{obj.createdBy.username}}</td>
-      <td  ng-show="isManager()"><a class="click" ng-click="remove(obj._id)"><span class="glyphicon glyphicon-remove" title="Remove {{obj.title}}"onMarkerClicked></span></a></td>
-    </tr>
-
-  </tbody>
-</table>
-
-<ui-gmap-google-map center='map.center' zoom='map.zoom'>
-
-<ui-gmap-markers models="markers2" coords="'self'" icon="'icon'" click="onMarkerClicked" options="'options'" events="markers2Events">
-  <ui-gmap-windows show="'showWindow'" closeClick="'closeClick'" onClicked="'onClicked'" ng-cloak>
-                <div>
-                    <h3 ng-non-bindable><a ng-click="goToDetails(id)">{{title}}</a></h3>
-                    <p ng-non-bindable>{{text}}</p>
-                    <p ng-non-bindable>Coordinates: {{ latitude | number:4 }}, {{ longitude | number:4 }}</p>
-
+    <div class="container" ng-if="isLoggedIn()">
+        <div class="row">
+            <div class="col-md-12">
+                <div ui-grid="gridOptions" class="grid" ui-grid-pagination>
                 </div>
-            </ui-gmap-windows>
-        </ui-gmap-markers>
 
-<br>
-</div>
+
+
+
+
+
+
+                <table class="table  table-bordered table-sm" style="border:1px solid yellow">
+                    <thead class="thead-inverse ">
+                    <tr>
+                        <th>#</th>
+                        <th>Title</th>
+                        <th>Latitude</th>
+                        <th>Longitude</th>
+                        <th>Created By</th>
+                        <th ng-show="isManager()"></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="obj in items track by $index">
+                        <th scope="row">{{$index+1}}</th>
+                        <td><a ng-click="goToDetails(obj.id)">{{obj.title}}</a></td>
+                        <td>{{obj.lat}}</td>
+                        <td>{{obj.lon}}</td>
+                        <td>{{obj.createdBy.username}}</td>
+                        <td  ng-show="isManager()"><a class="click" ng-click="remove(obj._id)"><span class="glyphicon glyphicon-remove" title="Remove {{obj.title}}"onMarkerClicked></span></a></td>
+                    </tr>
+
+                    </tbody>
+                </table>
+            </div>
+            <div class="row">
+                <div class="col-md-2 category-list">
+                    <ul class="list-group">
+                        <li class="list-group-item"><b>CATEGORIES</b></li>
+                        <li class="list-group-item"><a href="#">Second item</a></li>
+                        <li class="list-group-item"><a href="#">Third item</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-10 google-map">
+                    <ui-gmap-google-map center='map.center' zoom='map.zoom'>
+
+                        <ui-gmap-markers models="markers2" coords="'self'" icon="'icon'" clicked="'onMarkerClicked'" options="'options'" events="markers2Events">
+                            <ui-gmap-windows show="'showWindow'" closeClick="'closeClick'" onClicked="'onClicked'" ng-cloak>
+                                <div>
+                                    <h3 ng-non-bindable><a ng-click="goToDetails(id)">{{title}}</a></h3>
+                                    <p ng-non-bindable>{{text}}</p>
+                                    <p ng-non-bindable>Coordinates: {{ latitude | number:4 }}, {{ longitude | number:4 }}</p>
+
+                                </div>
+                            </ui-gmap-windows>
+                        </ui-gmap-markers>
+                    </ui-gmap-google-map>
+
+                    <br>
+                </div>
+            </div>
+
+        </div>
+    </div>
 </div>

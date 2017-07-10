@@ -7,9 +7,8 @@ angular.module('jumboClient').controller('HomeCtrl', ['uiGmapGoogleMapApi', 'Use
 $scope.isLoggedIn = User.isLoggedIn;
 User.get() == null ? console.log("User is not logged in") : console.log("User is logged in with the username: ", User.getUsername());
 
-
 $scope.markers2 = [];
-$scope.map = { center: { latitude: 	46.770439, longitude: 23.591423 }, zoom: 17};
+$scope.map = { center: { latitude: 	46.78439, longitude: 23.556620 }, zoom: 17};
 $scope.map.infoWindow ={show:false, coords:null};
 
 uiGmapGoogleMapApi.then(function(maps) {
@@ -69,6 +68,9 @@ $scope.remove =function(id){
 function getItems(){
 
     // I would most probably need an ajax call to the server to the endpoint which returns all the shops
+    GeoItem.getShopLocations().then((items) => {
+        console.log(items);
+    })
 
 	/*
   GeoItem.selectAll().then(function(items){
@@ -97,7 +99,9 @@ var onMarkerClicked = function (marker) {
 
 
 $scope.markers2Events = {
-    dragend: function (marker, eventName, model, args) {
+
+    clicked: function (marker, eventName, model, args) {
+    console.log("SOMETHIGN FINALLY HAPPENED!!");
       model.options.labelContent = "Dragged lat: " + model.latitude + " lon: " + model.longitude;
     }
   };
@@ -112,12 +116,11 @@ function getMarkers(items){
     var newMarker =
     {
           id: items[i].id,
-          icon: iconPath,
           latitude: items[i].lat,
           longitude: items[i].lon,
           showWindow: false,
-          title:items[i].title,
           text: items[i].description,
+          title: items[i].title,
           options: {
             labelContent: items[i].title,
             labelAnchor: "22 0",
@@ -127,17 +130,16 @@ function getMarkers(items){
       $scope.markers2.push(newMarker);
   }
 
-  $scope.markers2.forEach( function (marker) {
-    marker.onClicked = function () {
-        alert("merge");
-        onMarkerClicked(marker);
-    };
-    marker.closeClick = function () {
-        marker.showWindow = false;
-        $scope.$evalAsync();
-    };
-  });
-
+//  $scope.markers2.forEach( function (marker) {
+//    marker.onClicked = function () {
+//        alert("merge");
+//        onMarkerClicked(marker);
+//    };
+//    marker.closeClick = function () {
+//        marker.showWindow = false;
+//        $scope.$evalAsync();
+//    };
+//  });
 }
 
 }]);

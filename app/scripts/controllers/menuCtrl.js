@@ -1,9 +1,7 @@
 'use strict';
 angular.module('jumboClient').controller('MenuCtrl', ['User', '$state', '$scope', function (User, $state, $scope) {
 
-  //$scope.isLoggedIn = User.isLoggedIn;
-
-//console.log(User.getUsername());
+ $scope.isLoggedIn = User.isLoggedIn;
 
 	function initHeader(){
 		if(User.isLoggedIn()){
@@ -18,6 +16,5 @@ angular.module('jumboClient').controller('MenuCtrl', ['User', '$state', '$scope'
 		User.logout();
 		$state.transitionTo('main.login');
 	}
-
 
 }]);
