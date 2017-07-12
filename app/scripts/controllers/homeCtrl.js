@@ -1,7 +1,7 @@
 'use strict';
 angular.module('jumboClient').controller('HomeCtrl', ['uiGmapGoogleMapApi', 'User', 'GeoItem', '$state', '$scope', '$log', 'Notification',
-  'ModalService', 'SweetAlert',
-	function (uiGmapGoogleMapApi, User, GeoItem, $state, $scope, $log, Notification, ModalService, SweetAlert) {
+  'ModalService', 'SweetAlert', 'PaginationService',
+	function (uiGmapGoogleMapApi, User, GeoItem, $state, $scope, $log, Notification, ModalService, SweetAlert, PaginationService) {
 
 /* A.UTH */
 $scope.isLoggedIn = User.isLoggedIn;
@@ -10,6 +10,12 @@ User.get() == null ? console.log("User is not logged in") : console.log("User is
 $scope.markers2 = [];
 $scope.map = { center: { latitude: 	46.78439, longitude: 23.556620 }, zoom: 17};
 $scope.map.infoWindow ={show:false, coords:null};
+
+var paginationOptions = {
+            pageNumber: 1,
+            pageSize: 5,
+            sort: null
+        };
 
 uiGmapGoogleMapApi.then(function(maps) {
   // at this point the map is loaded
@@ -129,17 +135,10 @@ function getMarkers(items){
         };
       $scope.markers2.push(newMarker);
   }
-
-//  $scope.markers2.forEach( function (marker) {
-//    marker.onClicked = function () {
-//        alert("merge");
-//        onMarkerClicked(marker);
-//    };
-//    marker.closeClick = function () {
-//        marker.showWindow = false;
-//        $scope.$evalAsync();
-//    };
-//  });
 }
+
+PaginationService.getSortedShops(paginationOptions.pageNumber).then((listOfShops) => {
+
+    })
 
 }]);

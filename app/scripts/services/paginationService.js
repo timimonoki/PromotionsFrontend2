@@ -1,7 +1,7 @@
 'use strict';
 angular.module('jumboClient').service('PaginationService', ['$q', '$http', function($q, $http) {
 
-    this.getSortedShops = function(page, pageSize){
+    this.getSortedShops = function(pageNumber, pageSize){
         var deferred = $q.defer();
         $http({
               method: 'GET',
