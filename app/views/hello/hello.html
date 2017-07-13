@@ -18,21 +18,21 @@
                     <thead class="thead-inverse ">
                     <tr>
                         <th>#</th>
-                        <th>Title</th>
-                        <th>Latitude</th>
-                        <th>Longitude</th>
-                        <th>Created By</th>
+                        <th>Shop Name</th>
+                        <th>City</th>
+                        <th>Street</th>
+                        <th>Street number</th>
                         <th ng-show="isManager()"></th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr ng-repeat="obj in items track by $index">
-                        <th scope="row">{{$index+1}}</th>
-                        <td><a ng-click="goToDetails(obj.id)">{{obj.title}}</a></td>
-                        <td>{{obj.lat}}</td>
-                        <td>{{obj.lon}}</td>
-                        <td>{{obj.createdBy.username}}</td>
-                        <td  ng-show="isManager()"><a class="click" ng-click="remove(obj._id)"><span class="glyphicon glyphicon-remove" title="Remove {{obj.title}}"onMarkerClicked></span></a></td>
+                    <tr ng-repeat="obj in allShops track by $index">
+                        <th scope="row">{{obj.id}}</th>
+                        <td><a ng-click="goToDetails(obj.id)">{{obj.name}}</a></td>
+                        <td>{{obj.shopDetails[0].city}}</td>
+                        <td>{{obj.shopDetails[0].street}}</td>
+                        <td>{{obj.shopDetails[0].streetNumber}}</td>
+                        <td  ng-show="isManager()"><a class="click" ng-click="remove(obj.id)"><span class="glyphicon glyphicon-remove" title="Remove {{obj.name}}"onMarkerClicked></span></a></td>
                     </tr>
 
                     </tbody>
@@ -42,8 +42,7 @@
                 <div class="col-md-2 category-list">
                     <ul class="list-group">
                         <li class="list-group-item"><b>CATEGORIES</b></li>
-                        <li class="list-group-item"><a href="#">Second item</a></li>
-                        <li class="list-group-item"><a href="#">Third item</a></li>
+                        <li class="list-group-item" ng-repeat="obj in alLCategories"><a href="#">{{alLCategories.name}}</a></li>
                     </ul>
                 </div>
                 <div class="col-md-10 google-map">

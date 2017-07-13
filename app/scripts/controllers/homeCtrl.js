@@ -4,16 +4,19 @@ angular.module('jumboClient').controller('HomeCtrl', ['$http', 'Geocoder','uiGma
 	function ($http, Geocoder,uiGmapGoogleMapApi, User, GeoItem, $state, $scope, $log, Notification, ModalService, SweetAlert) {
 
 
-
-
-
 /* A.UTH */
 $scope.isLoggedIn = User.isLoggedIn;
-User.get() == null ? console.log("User is not logged in") : console.log("User is logged in with the username: ", User.getUsername());
 
 $scope.markers2 = [];
 $scope.map = { center: { latitude: 	46.78439, longitude: 23.556620 }, zoom: 17};
 $scope.map.infoWindow ={show:false, coords:null};
+
+if(User.isLoggedIn){
+    getItems();
+    geocodeAddress();
+    getShops();
+   // getAllCategories();
+}
 
 var paginationOptions = {
             pageNumber: 1,
@@ -55,7 +58,7 @@ $scope.remove =function(id){
 
     SweetAlert.swal({
         title: "Are you sure you want to delete this item?",
-        text: "Your will not be able to recover it afterwards",
+        text: "You will not be able to recover it afterwards",
         type: "warning",
         showCancelButton: true,
         confirmButtonColor: "#DD6B55",
@@ -74,19 +77,15 @@ $scope.remove =function(id){
     });
 }
 
-
 function getItems(){
 
-    // I would most probably need an ajax call to the server to the endpoint which returns all the shops
     GeoItem.getShopLocations().then((itemsServer) => {
-        console.log("Data from server",itemsServer);
-        $scope.items = [{id:123, title: 'test', lat: '46.7712101', lon: '23.623635299999933', description: '123'}];
+        $scope.items = [{id:123, title: 'test', lat: itemsServer.latitude, lon: itemsServer.longitude, description: '123'}];
         getMarkers($scope.items);
     })
-
 }
 
-getItems();
+
 
 function geocodeAddress(){
     var geocodingPromise = Geocoder.geocodeAddress("Cluj Napoca, Romania");
@@ -101,9 +100,7 @@ function geocodeAddress(){
             $scope.geocodingResult = err.message;
           });
 }
-geocodeAddress();
 
-getShops();
 
 function getShops(){
    $http({
@@ -111,12 +108,24 @@ function getShops(){
           url: 'http://localhost:8093/lidl/findShops',
           headers: {'Content-Type':'application/json'}
           }).then(function successCallback(data){
-             console.log("Something",data);
+             $scope.allShops = data.data;
+             console.log("All shops",$scope.allShops);
           },
               function errorCallback(error){
              }
           );
 }
+
+//function getAllCategories(){
+//    $http({
+//        method: 'GET',
+//        url: 'http://localhost:8093/lidl/categories'
+//    }).then(function successCallback(result)){
+//        console.log("All categories", result);
+//        $scope.alLCategories = result.data;
+//    },
+//        function errorCallback(){}
+//}
 
 
 /* MARKERS MANAGEMENT */

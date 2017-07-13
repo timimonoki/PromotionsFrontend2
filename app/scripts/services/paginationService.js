@@ -7,8 +7,8 @@ angular.module('jumboClient').service('PaginationService', ['$q', '$http', funct
               method: 'GET',
               url: 'http://localhost:8093/lidl/findShops',
               headers: {'Content-Type':'application/json'}
-              }).then(function successCallback(response.data){
-                   deferred.resolve(response);
+              }).then(function successCallback(response){
+                   deferred.resolve(response.data);
                 },
                    function errorCallback(error){
               }
