@@ -8,7 +8,8 @@ angular.module('jumboClient').controller('HomeCtrl', ['$http', 'Geocoder','uiGma
 $scope.isLoggedIn = User.isLoggedIn;
 
 $scope.markers2 = [];
-$scope.map = { center: { latitude: 	46.78439, longitude: 23.556620 }, zoom: 17};
+$scope.items = [];
+$scope.map = { center: { latitude: 	46.7952336, longitude: 24.03165279999996}, zoom: 10};
 $scope.map.infoWindow ={show:false, coords:null};
 
 if(User.isLoggedIn){
@@ -75,19 +76,11 @@ $scope.remove =function(id){
     });
 }
 
-function getItems(){
-
-    GeoItem.getShopLocations().then((itemsServer) => {
-        $scope.items = [{id:123, title: 'test', lat: itemsServer.latitude, lon: itemsServer.longitude, description: '123'}];
-        getMarkers($scope.items);
-    })
-}
-
 function geocodeAddress(address, shop){
     var geocodingPromise = Geocoder.geocodeAddress(address);
         geocodingPromise.then(
           function (result) {
-             $scope.items = [{id:shop.id, title: shop.name, lat: result.lat, lon: result.lng, description: address}];
+             $scope.items.push({id:shop.id, title: shop.name, lat: result.lat, lon: result.lng, description: address});
              console.log("Scope items: ", $scope.items);
              getMarkers($scope.items);
           },
@@ -101,8 +94,8 @@ function getShops(){
           method: 'GET',
           url: 'http://localhost:8093/lidl/findShops',
           headers: {'Content-Type':'application/json'}
-          }).then(function successCallback(data){
-             $scope.allShops = data.data;
+          }).then(function successCallback(result){
+             $scope.allShops = result.data;
              var shops = $scope.allShops;
              console.log("All shops",shops);
              for(var i=0; i<shops.length; i++){
@@ -115,6 +108,7 @@ function getShops(){
               function errorCallback(error){
              }
           );
+
 }
 
 function getAllCategories(){
@@ -154,8 +148,6 @@ function getMarkers(items){
   $scope.markers2 = [];
 
   for (var i=0; i<items.length; i++){
-    var index = Math.floor((Math.random() * 9) + 1);
-    var iconPath = '../images/chest'+index+'.png';
     var newMarker =
     {
           id: items[i].id,
@@ -172,6 +164,7 @@ function getMarkers(items){
         };
       $scope.markers2.push(newMarker);
   }
+  console.log("Markers size is: ",$scope.markers2.length);
 }
 
 
