@@ -1,7 +1,11 @@
 'use strict';
-angular.module('jumboClient').controller('HomeCtrl', ['uiGmapGoogleMapApi', 'User', 'GeoItem', '$state', '$scope', '$log', 'Notification',
+angular.module('jumboClient').controller('HomeCtrl', ['$http', 'Geocoder','uiGmapGoogleMapApi', 'User', 'GeoItem', '$state', '$scope', '$log', 'Notification',
   'ModalService', 'SweetAlert',
-	function (uiGmapGoogleMapApi, User, GeoItem, $state, $scope, $log, Notification, ModalService, SweetAlert) {
+	function ($http, Geocoder,uiGmapGoogleMapApi, User, GeoItem, $state, $scope, $log, Notification, ModalService, SweetAlert) {
+
+
+
+
 
 /* A.UTH */
 $scope.isLoggedIn = User.isLoggedIn;
@@ -76,7 +80,7 @@ function getItems(){
     // I would most probably need an ajax call to the server to the endpoint which returns all the shops
     GeoItem.getShopLocations().then((itemsServer) => {
         console.log("Data from server",itemsServer);
-        $scope.items = [{id:123, title: 'test', lat: itemsServer.latitude, lon: itemsServer.longitude, description: '123'}];
+        $scope.items = [{id:123, title: 'test', lat: '46.7712101', lon: '23.623635299999933', description: '123'}];
         getMarkers($scope.items);
     })
 
@@ -84,13 +88,35 @@ function getItems(){
 
 getItems();
 
-//getShops();
-//
-//function getShops(){
-//    User.getSortedShops().then((shopsServer) => {
-//        console.log("Shops from server", shopsServer);
-//    })
-//}
+function geocodeAddress(){
+    var geocodingPromise = Geocoder.geocodeAddress("Cluj Napoca, Romania");
+        geocodingPromise.then(
+          function (result) {
+            $scope.geocodingResult =
+              '(lat, lng) ' + result.lat + ', ' + result.lng +
+              ' (address: \'' + result.formattedAddress + '\')';
+              console.log("Result geocoded: ", result);
+          },
+          function (err) {
+            $scope.geocodingResult = err.message;
+          });
+}
+geocodeAddress();
+
+getShops();
+
+function getShops(){
+   $http({
+          method: 'GET',
+          url: 'http://localhost:8093/lidl/findShops',
+          headers: {'Content-Type':'application/json'}
+          }).then(function successCallback(data){
+             console.log("Something",data);
+          },
+              function errorCallback(error){
+             }
+          );
+}
 
 
 /* MARKERS MANAGEMENT */

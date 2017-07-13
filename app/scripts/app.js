@@ -16,7 +16,8 @@ var jumboClient = angular
     'oitozero.ngSweetAlert',
     'ui-notification',
     'ui.grid',
-    'ui.grid.pagination'
+    'ui.grid.pagination',
+    'geocoder'
  ])
 
 jumboClient.config(function($stateProvider, $urlRouterProvider, $httpProvider, uiGmapGoogleMapApiProvider, NotificationProvider) {
@@ -69,7 +70,7 @@ jumboClient.config(function($stateProvider, $urlRouterProvider, $httpProvider, u
 
         .state('main.contact', {
             url: '/contact',
-            templateUrl: '/viewa/hello/contact.html'
+            templateUrl: '/views/hello/contact.html'
         })
 
     if (!$httpProvider.defaults.headers.get) {
