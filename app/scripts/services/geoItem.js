@@ -68,7 +68,7 @@ angular.module('jumboClient').service('GeoItem', ['Config', '$q', '$http', funct
     	            headers: {'Content-Type':'application/json'}
     	        }).then(function successCallback(response){
     	                console.log("Server response: ", response);
-    	                deffered.resolve(response);
+    	                deferred.resolve(response.data);
     	            },
     	            function errorCallback(error){
     	                console.log("Error: ", error);
@@ -76,5 +76,6 @@ angular.module('jumboClient').service('GeoItem', ['Config', '$q', '$http', funct
     	        );
     	        return deferred.promise;
     	}
+
 
 }]);

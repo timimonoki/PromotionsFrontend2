@@ -5,16 +5,17 @@ angular.module('jumboClient').service('PaginationService', ['$q', '$http', funct
         var deferred = $q.defer();
         $http({
               method: 'GET',
-              url: 'http://localhost:8093/lidl/',
+              url: 'http://localhost:8093/lidl/findShops',
               headers: {'Content-Type':'application/json'}
-              }).then(function successCallback(response){
-                   deffered.resolve(response);
+              }).then(function successCallback(response.data){
+                   deferred.resolve(response);
                 },
                    function errorCallback(error){
               }
                 );
         	       return deferred.promise;
-        	}
+     }
+
 
 
 }]);

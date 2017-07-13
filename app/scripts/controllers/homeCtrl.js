@@ -1,7 +1,7 @@
 'use strict';
 angular.module('jumboClient').controller('HomeCtrl', ['uiGmapGoogleMapApi', 'User', 'GeoItem', '$state', '$scope', '$log', 'Notification',
-  'ModalService', 'SweetAlert', 'PaginationService',
-	function (uiGmapGoogleMapApi, User, GeoItem, $state, $scope, $log, Notification, ModalService, SweetAlert, PaginationService) {
+  'ModalService', 'SweetAlert',
+	function (uiGmapGoogleMapApi, User, GeoItem, $state, $scope, $log, Notification, ModalService, SweetAlert) {
 
 /* A.UTH */
 $scope.isLoggedIn = User.isLoggedIn;
@@ -74,22 +74,23 @@ $scope.remove =function(id){
 function getItems(){
 
     // I would most probably need an ajax call to the server to the endpoint which returns all the shops
-    GeoItem.getShopLocations().then((items) => {
-        console.log(items);
+    GeoItem.getShopLocations().then((itemsServer) => {
+        console.log("Data from server",itemsServer);
+        $scope.items = [{id:123, title: 'test', lat: itemsServer.latitude, lon: itemsServer.longitude, description: '123'}];
+        getMarkers($scope.items);
     })
 
-	/*
-  GeoItem.selectAll().then(function(items){
-		console.log(items);
-		$scope.items = items;
-    getMarkers(items);
-	});*/
-
-    $scope.items = [{id:123, title: 'test', lat: '46.784010', lon: '23.556620', description: '123'}];
-    getMarkers($scope.items);
 }
 
 getItems();
+
+//getShops();
+//
+//function getShops(){
+//    User.getSortedShops().then((shopsServer) => {
+//        console.log("Shops from server", shopsServer);
+//    })
+//}
 
 
 /* MARKERS MANAGEMENT */
@@ -137,8 +138,5 @@ function getMarkers(items){
   }
 }
 
-PaginationService.getSortedShops(paginationOptions.pageNumber).then((listOfShops) => {
-
-    })
 
 }]);
