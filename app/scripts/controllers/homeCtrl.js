@@ -13,7 +13,6 @@ $scope.map.infoWindow ={show:false, coords:null};
 
 if(User.isLoggedIn){
     getItems();
-    geocodeAddress();
     getShops();
     getAllCategories();
 }
@@ -85,8 +84,9 @@ function getItems(){
     })
 }
 
-function geocodeAddress(){
-    var geocodingPromise = Geocoder.geocodeAddress("Cluj Napoca, Romania");
+function geocodeAddress(address){
+    console.log("Address is ", address);
+    var geocodingPromise = Geocoder.geocodeAddress(address);
         geocodingPromise.then(
           function (result) {
             $scope.geocodingResult =
@@ -106,7 +106,15 @@ function getShops(){
           headers: {'Content-Type':'application/json'}
           }).then(function successCallback(data){
              $scope.allShops = data.data;
-             console.log("All shops",$scope.allShops);
+             var shops = $scope.allShops;
+             console.log("All shops",shops);
+             for(var i=0; i<shops.length; i++){
+                for(var j=0; j<shops[i].shopDetails.length; j++){
+                    var address = shops[i].shopDetails[j].street + ' ' + shops[i].shopDetails[j].streetNumber + ' ' +shops[i].shopDetails[j].city + ' ' + shops[i].shopDetails[j].zipcode + ' ' + shops[i].shopDetails[j].country.name;
+                    console.log("Address constructed : ", address);
+                    geocodeAddress(address);
+                }
+             }
           },
               function errorCallback(error){
              }
@@ -132,7 +140,6 @@ $scope.onMarkerClicked = onMarkerClicked;
 
 var onMarkerClicked = function (marker) {
       console.log("CLICK");
-
       marker.showWindow = true;
       $scope.$apply();
       window.alert("Marker: lat: " + marker.latitude + ", lon: " + marker.longitude + " clicked!!")
@@ -140,7 +147,6 @@ var onMarkerClicked = function (marker) {
 
 
 $scope.markers2Events = {
-
     clicked: function (marker, eventName, model, args) {
     console.log("SOMETHIGN FINALLY HAPPENED!!");
       model.options.labelContent = "Dragged lat: " + model.latitude + " lon: " + model.longitude;
