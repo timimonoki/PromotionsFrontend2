@@ -15,7 +15,7 @@ if(User.isLoggedIn){
     getItems();
     geocodeAddress();
     getShops();
-   // getAllCategories();
+    getAllCategories();
 }
 
 var paginationOptions = {
@@ -85,8 +85,6 @@ function getItems(){
     })
 }
 
-
-
 function geocodeAddress(){
     var geocodingPromise = Geocoder.geocodeAddress("Cluj Napoca, Romania");
         geocodingPromise.then(
@@ -100,7 +98,6 @@ function geocodeAddress(){
             $scope.geocodingResult = err.message;
           });
 }
-
 
 function getShops(){
    $http({
@@ -116,16 +113,18 @@ function getShops(){
           );
 }
 
-//function getAllCategories(){
-//    $http({
-//        method: 'GET',
-//        url: 'http://localhost:8093/lidl/categories'
-//    }).then(function successCallback(result)){
-//        console.log("All categories", result);
-//        $scope.alLCategories = result.data;
-//    },
-//        function errorCallback(){}
-//}
+function getAllCategories(){
+    $http({
+        method: 'GET',
+        url: 'http://localhost:8093/lidl/categories',
+        headers: {'Content-Type':'application/json'}
+    }).then(function successCallback(result){
+        console.log("All categories", result.data);
+        $scope.alLCategories = result.data;
+    },
+        function errorCallback(){}
+    );
+}
 
 
 /* MARKERS MANAGEMENT */
