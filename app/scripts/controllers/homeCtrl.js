@@ -12,7 +12,6 @@ $scope.map = { center: { latitude: 	46.78439, longitude: 23.556620 }, zoom: 17};
 $scope.map.infoWindow ={show:false, coords:null};
 
 if(User.isLoggedIn){
-    getItems();
     getShops();
     getAllCategories();
 }
@@ -84,15 +83,13 @@ function getItems(){
     })
 }
 
-function geocodeAddress(address){
-    console.log("Address is ", address);
+function geocodeAddress(address, shop){
     var geocodingPromise = Geocoder.geocodeAddress(address);
         geocodingPromise.then(
           function (result) {
-            $scope.geocodingResult =
-              '(lat, lng) ' + result.lat + ', ' + result.lng +
-              ' (address: \'' + result.formattedAddress + '\')';
-              console.log("Result geocoded: ", result);
+             $scope.items = [{id:shop.id, title: shop.name, lat: result.lat, lon: result.lng, description: address}];
+             console.log("Scope items: ", $scope.items);
+             getMarkers($scope.items);
           },
           function (err) {
             $scope.geocodingResult = err.message;
@@ -111,8 +108,7 @@ function getShops(){
              for(var i=0; i<shops.length; i++){
                 for(var j=0; j<shops[i].shopDetails.length; j++){
                     var address = shops[i].shopDetails[j].street + ' ' + shops[i].shopDetails[j].streetNumber + ' ' +shops[i].shopDetails[j].city + ' ' + shops[i].shopDetails[j].zipcode + ' ' + shops[i].shopDetails[j].country.name;
-                    console.log("Address constructed : ", address);
-                    geocodeAddress(address);
+                    geocodeAddress(address, shops[i]);
                 }
              }
           },
