@@ -108,7 +108,6 @@ function getShops(){
               function errorCallback(error){
              }
           );
-
 }
 
 function getAllCategories(){
